@@ -108,25 +108,50 @@
 
             @php
                 $features = [
-                    ['title' => 'Berpengalaman 2 Tahun', 'desc' => 'Dipercaya untuk berbagai acara di Bogor & sekitarnya.'],
-                    ['title' => 'Bisa Custom Paket', 'desc' => 'Sesuaikan menu & isi paket sesuai kebutuhan acara Anda.'],
-                    ['title' => 'Fleksibel Waktu Pesan', 'desc' => 'Same day hingga H-3 tergantung jumlah pesanan.'],
-                    ['title' => 'Rasa Autentik Nusantara', 'desc' => 'Resep rumahan dengan cita rasa khas yang konsisten.'],
+                    [
+                        'title' => 'Berpengalaman 2 Tahun',
+                        'desc' => 'Dipercaya untuk berbagai acara di Bogor & sekitarnya.',
+                        'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+                    ],
+                    [
+                        'title' => 'Bisa Custom Paket',
+                        'desc' => 'Sesuaikan menu & isi paket sesuai kebutuhan acara Anda.',
+                        'icon' => 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4',
+                    ],
+                    [
+                        'title' => 'Fleksibel Waktu Pesan',
+                        'desc' => 'Same day hingga H-3 tergantung jumlah pesanan.',
+                        'icon' => 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+                    ],
+                    [
+                        'title' => 'Rasa Autentik Nusantara',
+                        'desc' => 'Resep rumahan dengan cita rasa khas yang konsisten.',
+                        'icon' => 'M12 3c1.5 2 4 4.5 4 8a4 4 0 01-8 0c0-1.2.4-2 1-3 .2 1 .8 1.5 1.5 1.5-.5-2 .5-4.5 1.5-6.5z',
+                    ],
                 ];
             @endphp
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 max-w-7xl mx-auto">
                 @foreach($features as $f)
                     <div
-                        class="group p-8 bg-white rounded-2xl shadow-sm border border-black/5 hover:border-cnb-gold/30 hover:shadow-xl transition-all duration-500 ease-out hover:-translate-y-2 text-center flex flex-col justify-between">
+                        class="group p-8 sm:p-10 bg-white rounded-3xl shadow-md border border-black/5 hover:border-cnb-gold/40 hover:shadow-2xl transition-all duration-500 ease-out hover:-translate-y-3 text-center flex flex-col justify-between">
                         <div>
                             <div
-                                class="w-16 h-16 rounded-2xl bg-cnb-gold/10 border border-cnb-gold/30 mx-auto flex items-center justify-center mb-6 group-hover:bg-cnb-gold group-hover:text-cnb-black transition-all duration-500">
-                                <span
-                                    class="text-cnb-gold group-hover:text-cnb-black font-serif text-2xl transition-colors">✦</span>
+                                class="w-20 h-20 rounded-2xl bg-cnb-gold/10 border border-cnb-gold/30 mx-auto flex items-center justify-center mb-8 group-hover:bg-cnb-gold transition-all duration-500 shadow-inner">
+                                <svg class="w-10 h-10 text-cnb-gold group-hover:text-cnb-black transition-colors duration-500"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                        d="{{ $f['icon'] }}" />
+                                </svg>
                             </div>
-                            <h3 class="font-serif text-xl font-bold text-cnb-black mb-3">{{ $f['title'] }}</h3>
-                            <p class="text-cnb-gray font-poppins text-sm leading-relaxed">{{ $f['desc'] }}</p>
+
+                            <h3
+                                class="font-serif text-2xl font-bold text-cnb-black mb-4 group-hover:text-cnb-gold transition-colors duration-300">
+                                {{ $f['title'] }}
+                            </h3>
+                            <p class="text-cnb-gray font-poppins text-base leading-relaxed">
+                                {{ $f['desc'] }}
+                            </p>
                         </div>
                     </div>
                 @endforeach
@@ -148,21 +173,17 @@
                 <div class="w-16 h-[2px] bg-cnb-gold mx-auto"></div>
             </div>
 
-            {{-- Menggunakan max-w-7xl agar card proporsional dan tidak ada banyak ruang kosong --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 max-w-7xl mx-auto">
                 @forelse($categories as $category)
                     <div
                         class="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-white border border-cnb-gold/20 shadow-xl hover:shadow-2xl hover:border-cnb-gold/50 transition-all duration-500 ease-out hover:-translate-y-2">
 
-                        {{-- Bagian Atas: Gambar (Lebih Tinggi/Besar) + Overlay + Badge --}}
                         <div class="relative h-80 sm:h-96 overflow-hidden">
-                            {{-- Gambar Kategori --}}
-                            <img src="{{ asset('images/paket chicken gold pop.jpeg' . $category->slug . '.jpeg') }}" alt="{{ $category->name }}"
+                            <img src="{{ asset('images/paket chicken gold pop.jpeg' . $category->slug . '.jpeg') }}"
+                                alt="{{ $category->name }}"
                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
-                            {{-- Gradient Overlay --}}
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
 
-                            {{-- Badge Premium Melayang --}}
                             <div
                                 class="absolute top-5 left-5 bg-cnb-black/70 backdrop-blur-md border border-cnb-gold/40 px-3.5 py-1.5 rounded-full shadow-md">
                                 <span
@@ -171,7 +192,6 @@
                                 </span>
                             </div>
 
-                            {{-- Judul Kategori di Atas Gambar --}}
                             <div class="absolute bottom-5 left-6 right-6">
                                 <h3
                                     class="font-serif font-bold text-2xl sm:text-3xl text-white tracking-wide group-hover:text-cnb-gold transition-colors duration-300">
@@ -180,7 +200,6 @@
                             </div>
                         </div>
 
-                        {{-- Bagian Bawah: Deskripsi & Tombol Aksi Compact --}}
                         <div
                             class="p-7 sm:p-9 flex flex-col justify-between flex-grow bg-gradient-to-b from-white to-cnb-cream/20">
                             <p class="text-cnb-gray font-poppins text-sm sm:text-base leading-relaxed mb-6">
@@ -188,7 +207,6 @@
                                 istimewa Anda.
                             </p>
 
-                            {{-- Baris Bawah: Tombol "Lihat Menu" yang Lebih Kecil & Elegan --}}
                             <div class="pt-5 border-t border-cnb-gold/15 flex items-center justify-end">
                                 <a href="{{ route('menu.index', ['category' => $category->slug]) }}"
                                     class="inline-flex items-center gap-2 px-4 py-2 bg-cnb-black hover:bg-cnb-gold text-white hover:text-cnb-black font-poppins font-medium text-xs sm:text-sm rounded-full transition-all duration-300 shadow-sm hover:shadow-md group/btn">
@@ -336,12 +354,22 @@
                     <div
                         class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-500 ease-out hover:border-cnb-gold/40 hover:-translate-y-2 flex flex-col justify-between">
                         <div>
-                            <div class="text-cnb-gold mb-4 text-lg">★★★★★</div>
-                            <p class="text-white/80 font-poppins text-sm leading-relaxed mb-6 font-light">"{{ $t->review }}"</p>
+                            <div class="flex items-center gap-1 text-cnb-gold mb-5">
+                                @for($star = 0; $star < ($t->rating ?? 5); $star++)
+                                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                        <path
+                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg>
+                                @endfor
+                            </div>
+
+                            <p class="text-white/80 font-poppins text-sm sm:text-base leading-relaxed mb-6 font-light">
+                                "{{ $t->review }}"</p>
                         </div>
-                        <div>
-                            <div class="font-serif text-white font-semibold text-base">{{ $t->client_name }}</div>
-                            <div class="text-white/40 font-poppins text-xs mt-1">{{ $t->event_type }}</div>
+
+                        <div class="pt-4 border-t border-white/10">
+                            <div class="font-serif text-white font-semibold text-base sm:text-lg">{{ $t->client_name }}</div>
+                            <div class="text-cnb-gold/80 font-poppins text-xs sm:text-sm mt-0.5">{{ $t->event_type }}</div>
                         </div>
                     </div>
                 @empty
@@ -349,13 +377,22 @@
                         <div
                             class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-500 ease-out hover:border-cnb-gold/40 hover:-translate-y-2 flex flex-col justify-between">
                             <div>
-                                <div class="text-cnb-gold mb-4 text-lg">★★★★★</div>
-                                <p class="text-white/80 font-poppins text-sm leading-relaxed mb-6 font-light">"Testimoni pelanggan
-                                    akan tampil di sini setelah data tersedia."</p>
+                                <div class="flex items-center gap-1 text-cnb-gold mb-5">
+                                    @for($star = 0; $star < 5; $star++)
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    @endfor
+                                </div>
+
+                                <p class="text-white/80 font-poppins text-sm sm:text-base leading-relaxed mb-6 font-light">
+                                    "Testimoni pelanggan akan tampil di sini setelah data tersedia."</p>
                             </div>
-                            <div>
-                                <div class="font-serif text-white font-semibold text-base">Nama Pelanggan</div>
-                                <div class="text-white/40 font-poppins text-xs mt-1">Jenis Acara</div>
+
+                            <div class="pt-4 border-t border-white/10">
+                                <div class="font-serif text-white font-semibold text-base sm:text-lg">Nama Pelanggan</div>
+                                <div class="text-cnb-gold/80 font-poppins text-xs sm:text-sm mt-0.5">Jenis Acara</div>
                             </div>
                         </div>
                     @endfor
@@ -365,10 +402,10 @@
     </section>
 
     {{-- ============================================ --}}
-    {{-- 6. CTA SECTION (Tampilan Garis Putih Hilang) --}}
+    {{-- 6. CTA SECTION (mb-20 Dihapus untuk Menghilangkan Gap) --}}
     {{-- ============================================ --}}
     <section class="relative py-24 bg-cnb-black overflow-hidden">
-        <div class="container mx-auto px-6 relative">
+        <div class="container mx-auto px-6 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="font-serif text-3xl md:text-5xl text-white font-bold mb-4 leading-tight">
                     Siap Memesan untuk <span class="text-cnb-gold">Acara Anda?</span>
@@ -391,5 +428,67 @@
             </div>
         </div>
     </section>
+
+    {{-- Garis Pemisah Putih --}}
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+    </div>
+
+    {{-- FOOTER SECTION --}}
+    <footer class="bg-cnb-black text-cnb-cream pt-16 pb-10">
+        <div class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
+            {{-- Kolom 1 --}}
+            <div class="space-y-4">
+                <h3 class="font-serif text-2xl font-bold tracking-wide">
+                    Catering <span class="text-cnb-gold">Nusantara</span>
+                </h3>
+                <p class="text-base text-gray-300 leading-relaxed">
+                    Penyedia catering terpercaya untuk nasi box, tumpeng, dan snack box khas Nusantara. Siap melayani
+                    berbagai acara spesial Anda dengan cita rasa autentik.
+                </p>
+            </div>
+
+            {{-- Kolom 2 --}}
+            <div>
+                <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Navigasi</h4>
+                <ul class="text-base space-y-3 text-gray-300">
+                    <li><a href="{{ route('menu.index') }}" class="hover:text-cnb-gold transition duration-200 block">Menu
+                            Catering</a></li>
+                    <li><a href="{{ route('gallery') }}" class="hover:text-cnb-gold transition duration-200 block">Galeri
+                            Foto</a></li>
+                    <li><a href="{{ route('about') }}" class="hover:text-cnb-gold transition duration-200 block">Tentang
+                            Kami</a></li>
+                </ul>
+            </div>
+
+            {{-- Kolom 3 --}}
+            <div>
+                <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Jam Layanan</h4>
+                <ul class="text-base space-y-2 text-gray-300">
+                    <li><span class="font-medium text-white">Senin - Sabtu:</span> 08.00 - 18.00 WIB</li>
+                    <li><span class="font-medium text-white">Minggu:</span> Khusus Pesanan Khusus</li>
+                    <li class="pt-2 text-sm text-gray-400">* Menerima pemesanan H-2 acara.</li>
+                </ul>
+            </div>
+
+            {{-- Kolom 4 --}}
+            <div>
+                <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Kontak Kami</h4>
+                <div class="text-base space-y-3 text-gray-300">
+                    <p class="flex items-center gap-2">
+                        <span class="font-semibold text-white">WhatsApp:</span> 0800-0000-0000
+                    </p>
+                    <p>
+                        <span class="font-semibold text-white">Area Layanan:</span> Kota Bogor, Kab. Bogor, & Sekitarnya
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        {{-- Copyright --}}
+        <div class="text-center text-sm text-gray-400 py-6 border-t border-white/10">
+            &copy; {{ date('Y') }} Catering Nusantara Bogor. All rights reserved.
+        </div>
+    </footer>
 
 @endsection
