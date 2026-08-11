@@ -49,54 +49,54 @@
         @yield('content')
     </main>
 
-    {{-- FOOTER --}}
-    <footer class="bg-cnb-wood-dark text-cnb-cream pt-16 pb-10 batik-pattern">
-        <div class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
-            <div class="space-y-4">
-                <h3 class="font-serif text-2xl font-bold tracking-wide">
-                    Catering <span class="text-cnb-gold">Nusantara</span>
-                </h3>
-                <p class="text-base text-gray-300 leading-relaxed">
-                    Penyedia catering terpercaya untuk nasi box, tumpeng, dan snack box khas Nusantara. Siap melayani berbagai acara spesial Anda dengan cita rasa autentik.
+   {{-- FOOTER --}}
+<footer class="bg-cnb-wood-dark text-cnb-cream pt-16 pb-10 batik-pattern-footer">
+    <div class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div class="space-y-4">
+            <h3 class="font-serif text-2xl font-bold tracking-wide">
+                Catering <span class="text-cnb-gold">Nusantara</span>
+            </h3>
+            <p class="text-base text-cnb-cream/70 leading-relaxed">
+                Penyedia catering terpercaya untuk nasi box, tumpeng, dan snack box khas Nusantara. Siap melayani berbagai acara spesial Anda dengan cita rasa autentik.
+            </p>
+        </div>
+
+        <div>
+            <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Navigasi</h4>
+            <ul class="text-base space-y-3 text-cnb-cream/70">
+                <li><a href="{{ route('home') }}" class="hover:text-cnb-gold transition duration-200 block">Beranda</a></li>
+                <li><a href="{{ route('menu.index') }}" class="hover:text-cnb-gold transition duration-200 block">Menu Catering</a></li>
+                <li><a href="{{ route('about') }}" class="hover:text-cnb-gold transition duration-200 block">Tentang Kami</a></li>
+                <li><a href="{{ route('cara-pesan') }}" class="hover:text-cnb-gold transition duration-200 block">Cara Pesan</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Jam Layanan</h4>
+            <ul class="text-base space-y-2 text-cnb-cream/70">
+                <li><span class="font-medium text-white">Senin - Sabtu:</span> 08.00 - 18.00 WIB</li>
+                <li><span class="font-medium text-white">Minggu:</span> Khusus Pesanan Khusus</li>
+                <li class="pt-2 text-sm text-cnb-cream/50">* Menerima pemesanan H-2 acara.</li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Kontak Kami</h4>
+            <div class="text-base space-y-3 text-cnb-cream/70">
+                <p class="flex items-center gap-2">
+                    <span class="font-semibold text-white">WhatsApp:</span> 0856-1155-113
+                </p>
+                <p>
+                    <span class="font-semibold text-white">Area Layanan:</span> Bogor & Jabodetabek
                 </p>
             </div>
-
-            <div>
-                <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Navigasi</h4>
-                <ul class="text-base space-y-3 text-gray-300">
-                    <li><a href="{{ route('home') }}" class="hover:text-cnb-gold transition duration-200 block">Beranda</a></li>
-                    <li><a href="{{ route('menu.index') }}" class="hover:text-cnb-gold transition duration-200 block">Menu Catering</a></li>
-                    <li><a href="{{ route('about') }}" class="hover:text-cnb-gold transition duration-200 block">Tentang Kami</a></li>
-                    <li><a href="{{ route('cara-pesan') }}" class="hover:text-cnb-gold transition duration-200 block">Cara Pesan</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Jam Layanan</h4>
-                <ul class="text-base space-y-2 text-gray-300">
-                    <li><span class="font-medium text-white">Senin - Sabtu:</span> 08.00 - 18.00 WIB</li>
-                    <li><span class="font-medium text-white">Minggu:</span> Khusus Pesanan Khusus</li>
-                    <li class="pt-2 text-sm text-gray-400">* Menerima pemesanan H-2 acara.</li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Kontak Kami</h4>
-                <div class="text-base space-y-3 text-gray-300">
-                    <p class="flex items-center gap-2">
-                        <span class="font-semibold text-white">WhatsApp:</span> 0856-1155-113
-                    </p>
-                    <p>
-                        <span class="font-semibold text-white">Area Layanan:</span> Bogor & Jabodetabek
-                    </p>
-                </div>
-            </div>
         </div>
+    </div>
 
-        <div class="text-center text-sm text-gray-400 py-6 border-t border-white/10">
-            &copy; {{ date('Y') }} Catering Nusantara Bogor. All rights reserved.
-        </div>
-    </footer>
+    <div class="text-center text-sm text-cnb-cream/50 py-6 border-t border-white/10">
+        &copy; {{ date('Y') }} Catering Nusantara Bogor. All rights reserved.
+    </div>
+</footer>
 
     {{-- FLOATING ACTIONS (KERANJANG + WHATSAPP) --}}
     <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
