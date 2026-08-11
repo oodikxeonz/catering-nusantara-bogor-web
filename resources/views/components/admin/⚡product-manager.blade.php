@@ -164,7 +164,7 @@ new #[Layout('layouts.admin')] class extends Component
             <div class="col-span-full text-center py-16 bg-white rounded-2xl border border-gray-200 px-8">
                 <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gray-100 flex items-center justify-center">
                     <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v7a3 3 0 003 3v8m-3-11V3m-3 0v7a3 3 0 003 3m12-10a3 3 0 00-3 3v5a3 3 0 003 3v3m0-11V3"/>
                     </svg>
                 </div>
                 <h3 class="font-serif text-xl font-bold text-cnb-wood-dark mb-1">Belum Ada Item Lauk</h3>
