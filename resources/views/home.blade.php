@@ -69,64 +69,98 @@
 
     {{-- BEST SELLER --}}
     <section class="py-24 bg-cnb-leaf-dark relative overflow-hidden batik-pattern-diagonal">
-        <div class="container mx-auto px-6 relative">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-cnb-gold font-sans text-xs md:text-sm tracking-[0.3em] uppercase font-semibold">PALING DICARI</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-white mt-3 mb-4 font-bold">Menu <span class="text-cnb-gold">Best Seller</span></h2>
-                <div class="w-16 h-0.5 bg-cnb-gold mx-auto"></div>
-            </div>
+    <div class="container mx-auto px-6 relative">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-cnb-gold font-sans text-xs md:text-sm tracking-[0.3em] uppercase font-semibold">PALING DICARI</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-white mt-3 mb-4 font-bold">Menu <span class="text-cnb-gold">Best Seller</span></h2>
+            <div class="w-16 h-0.5 bg-cnb-gold mx-auto"></div>
+        </div>
 
-            @php
-                $bestSellers = [
-                    ['name' => 'Nasi Pasundan Empal', 'price' => 30000, 'desc' => 'Nasi hangat dengan empal daging empuk khas Sunda, disajikan bersama sambal dan lalapan segar.'],
-                    ['name' => 'Ayam Serundeng', 'price' => 28000, 'desc' => 'Ayam suwir gurih berbalut serundeng kelapa khas Nusantara, cocok untuk segala acara.'],
-                    ['name' => 'Ayam Bakar', 'price' => 30000, 'desc' => 'Ayam bakar bumbu rempah pilihan dengan aroma khas panggangan, dijamin bikin nagih.'],
-                ];
-            @endphp
+        @php
+            $bestSellers = [
+                [
+                    'name' => 'Nasi Pasundan Empal',
+                    'price' => 30000,
+                    'desc' => 'Nasi hangat dengan empal daging empuk khas Sunda, disajikan bersama sambal dan lalapan segar.',
+                    'image' => 'nasipasundan-empal.jpg', // Cukup tulis nama file jika gambar ada di public/images/
+                ],
+                [
+                    'name' => 'Ayam Serundeng',
+                    'price' => 28000,
+                    'desc' => 'Ayam suwir gurih berbalut serundeng kelapa khas Nusantara, cocok untuk segala acara.',
+                    'image' => 'ayam-serundeng.jpg',
+                ],
+                [
+                    'name' => 'Ayam Bakar',
+                    'price' => 30000,
+                    'desc' => 'Ayam bakar bumbu rempah pilihan dengan aroma khas panggangan, dijamin bikin nagih.',
+                    'image' => 'ayam-bakar.jpg', // Disesuaikan agar tidak membawa prefix "images/"
+                ],
+            ];
+        @endphp
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                @foreach($bestSellers as $item)
-                    <div class="group relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-md border border-cnb-gold/20 hover:border-cnb-gold/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between">
-                        <div>
-                            <div class="absolute top-4 left-4 z-10 bg-cnb-gold text-cnb-wood-dark text-xs font-sans font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5">
-                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                                BEST SELLER
-                            </div>
-                            <div class="h-56 overflow-hidden">
-                                <img src="https://placehold.co/500x400/5C4030/F3EAD9?text={{ urlencode($item['name']) }}" alt="{{ $item['name'] }}"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            </div>
-                            <div class="p-6">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="font-serif text-xl font-bold text-white">{{ $item['name'] }}</h3>
-                                    <span class="font-serif font-bold text-cnb-gold text-lg">Rp{{ number_format($item['price'], 0, ',', '.') }}<span class="text-xs text-white/70 font-sans">/pax</span></span>
-                                </div>
-                                <p class="text-white/70 font-sans text-sm leading-relaxed mb-4">{{ $item['desc'] }}</p>
-                            </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            @foreach($bestSellers as $item)
+                <div class="group relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-md border border-cnb-gold/20 hover:border-cnb-gold/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between">
+                    <div>
+                        <!-- Badge Best Seller -->
+                        <div class="absolute top-4 left-4 z-10 bg-cnb-gold text-cnb-wood-dark text-xs font-sans font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            BEST SELLER
                         </div>
-                        <div class="p-6 pt-0">
-                            {{-- Fitur keranjang belum tersedia, sementara arahkan ke katalog menu --}}
-                            <a href="{{ route('menu.index') }}"
-                               class="w-full bg-cnb-gold hover:bg-cnb-gold-light text-cnb-wood-dark font-semibold text-sm py-3 rounded-full transition-all shadow flex items-center justify-center gap-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 4a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z" />
-                                </svg>
-                                <span>Lihat di Katalog Menu</span>
-                            </a>
+
+                        <!-- Image Wrapper -->
+                        <div class="h-56 overflow-hidden bg-white/5">
+                            @if(!empty($item['image']))
+                                <img src="{{ asset('images/' . $item['image']) }}"
+                                     alt="{{ $item['name'] }}"
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center text-white/40 font-sans text-xs">
+                                    [ Gambar Tidak Tersedia ]
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Item Content -->
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-serif text-xl font-bold text-white">{{ $item['name'] }}</h3>
+                                <span class="font-serif font-bold text-cnb-gold text-lg">
+                                    Rp{{ number_format($item['price'], 0, ',', '.') }}<span class="text-xs text-white/70 font-sans">/pax</span>
+                                </span>
+                            </div>
+                            <p class="text-white/70 font-sans text-sm leading-relaxed mb-4">{{ $item['desc'] }}</p>
                         </div>
                     </div>
-                @endforeach
-            </div>
 
-            <div class="text-center mt-16">
-                <a href="{{ route('menu.index') }}"
-                    class="inline-flex items-center gap-3 px-10 py-4 border-2 border-cnb-gold text-cnb-gold font-sans font-semibold rounded-full transition-all duration-300 hover:bg-cnb-gold hover:text-cnb-wood-dark hover:shadow-[0_10px_30px_rgba(201,162,39,0.3)] hover:-translate-y-1">
-                    <span>Lihat Semua Menu</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                </a>
-            </div>
+                    <!-- Action Button -->
+                    <div class="p-6 pt-0">
+                        <a href="{{ route('menu.index') }}"
+                           class="w-full bg-cnb-gold hover:bg-cnb-gold-light text-cnb-wood-dark font-semibold text-sm py-3 rounded-full transition-all shadow flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 4a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z" />
+                            </svg>
+                            <span>Lihat di Katalog Menu</span>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
         </div>
-    </section>
+
+        <div class="text-center mt-16">
+            <a href="{{ route('menu.index') }}"
+               class="inline-flex items-center gap-3 px-10 py-4 border-2 border-cnb-gold text-cnb-gold font-sans font-semibold rounded-full transition-all duration-300 hover:bg-cnb-gold hover:text-cnb-wood-dark hover:shadow-[0_10px_30px_rgba(201,162,39,0.3)] hover:-translate-y-1">
+                <span>Lihat Semua Menu</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
 
     {{-- KEUNGGULAN --}}
     <section class="py-24 bg-cnb-cream relative">
@@ -164,38 +198,53 @@
 
     {{-- ABOUT PREVIEW --}}
     <section class="py-24 bg-cnb-cream relative overflow-hidden">
-        <div class="container mx-auto px-6 relative">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
-                <div class="relative order-2 lg:order-1">
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                        <img src="https://placehold.co/600x500/F3EAD9/3E2A1E?text=Foto+Dapur" alt="Foto Dapur Catering Nusantara" class="w-full h-full object-cover">
-                        <div class="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-cnb-gold/30 rounded-lg"></div>
-                        <div class="absolute -top-4 -left-4 w-24 h-24 border-2 border-cnb-gold/30 rounded-lg"></div>
-                    </div>
-                    <div class="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-6 hidden md:flex items-center gap-4 border border-cnb-wood-dark/5">
-                        <div class="w-12 h-12 bg-cnb-gold/10 rounded-xl flex items-center justify-center shrink-0">
-                            <svg class="w-6 h-6 text-cnb-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                        </div>
-                        <div>
-                            <div class="font-serif font-bold text-cnb-wood-dark text-lg">2+ Tahun</div>
-                            <div class="text-cnb-gray text-xs font-sans">Pengalaman Pengolahan</div>
-                        </div>
-                    </div>
+    <div class="container mx-auto px-6 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
+            
+            <!-- Kolom Gambar -->
+            <div class="relative order-2 lg:order-1">
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="{{ asset('images/nasi-ayam-suwir.jpg') }}" alt="Foto Dapur Catering Nusantara" class="w-full h-full object-cover">
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-cnb-gold/30 rounded-lg"></div>
+                    <div class="absolute -top-4 -left-4 w-24 h-24 border-2 border-cnb-gold/30 rounded-lg"></div>
                 </div>
-
-                <div class="order-1 lg:order-2">
-                    <span class="text-cnb-gold font-sans text-xs md:text-sm tracking-[0.3em] uppercase font-semibold">TENTANG KAMI</span>
-                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-cnb-wood-dark mt-3 mb-6 leading-tight">Dibuat dengan Hati, <br><span class="text-cnb-gold">Disajikan dengan Bangga</span></h2>
-                    <p class="text-cnb-gray font-sans text-base leading-relaxed mb-8">Sejak berdiri, Catering Nusantara Bogor berkomitmen menghadirkan hidangan khas Nusantara dengan cita rasa rumahan yang hangat untuk setiap acara Anda.</p>
-                    <a href="{{ route('about') }}"
-                        class="inline-flex items-center gap-3 px-8 py-4 bg-cnb-gold text-cnb-wood-dark font-sans font-semibold rounded-full transition-all duration-300 hover:bg-cnb-gold-light hover:shadow-[0_10px_30px_rgba(201,162,39,0.3)] hover:-translate-y-1">
-                        <span>Selengkapnya Tentang Kami</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </a>
+                
+                <!-- Badge Experience -->
+                <div class="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-6 hidden md:flex items-center gap-4 border border-cnb-wood-dark/5">
+                    <div class="w-12 h-12 bg-cnb-gold/10 rounded-xl flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6 text-cnb-gold" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-serif font-bold text-cnb-wood-dark text-lg">2+ Tahun</div>
+                        <div class="text-cnb-gray text-xs font-sans">Pengalaman Pengolahan</div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Kolom Teks -->
+            <div class="order-1 lg:order-2">
+                <span class="text-cnb-gold font-sans text-xs md:text-sm tracking-[0.3em] uppercase font-semibold">TENTANG KAMI</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold text-cnb-wood-dark mt-3 mb-6 leading-tight">
+                    Dibuat dengan Hati, <br>
+                    <span class="text-cnb-gold">Disajikan dengan Bangga</span>
+                </h2>
+                <p class="text-cnb-gray font-sans text-base leading-relaxed mb-8">
+                    Sejak berdiri, Catering Nusantara Bogor berkomitmen menghadirkan hidangan khas Nusantara dengan cita rasa rumahan yang hangat untuk setiap acara Anda.
+                </p>
+                <a href="{{ route('about') }}"
+                   class="inline-flex items-center gap-3 px-8 py-4 bg-cnb-gold text-cnb-wood-dark font-sans font-semibold rounded-full transition-all duration-300 hover:bg-cnb-gold-light hover:shadow-[0_10px_30px_rgba(201,162,39,0.3)] hover:-translate-y-1">
+                    <span>Selengkapnya Tentang Kami</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
     {{-- TESTIMONI --}}
     <section class="py-24 bg-cnb-wood-dark relative overflow-hidden batik-pattern">
