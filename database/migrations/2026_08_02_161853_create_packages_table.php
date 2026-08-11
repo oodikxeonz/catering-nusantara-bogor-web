@@ -12,9 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('packages', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+    $table->id();
+    $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+    $table->string('name');
+    $table->enum('product_type', ['nasi_box', 'tumpeng', 'snack_box']);
+    $table->decimal('price_per_pax', 10, 2);
+    $table->integer('min_order')->default(1);
+    $table->text('description')->nullable();
+    $table->string('image')->nullable();
+    $table->boolean('is_customizable')->default(false);
+    $table->boolean('is_available')->default(true);
+    $table->timestamps();
+});
     }
 
     /**

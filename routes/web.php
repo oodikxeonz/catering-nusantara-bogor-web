@@ -12,8 +12,10 @@ use App\Livewire\Admin\MenuManager;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
 Route::get('/menu/{slug}', [MenuController::class, 'show'])->name('menu.show');
-Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/tentang', [HomeController::class, 'about'])->name('about');
+Route::get('/cara-pesan', function () {
+    return view('cara-pesan');
+})->name('cara-pesan');
 
 // ===== ADMIN ROUTES =====
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -26,5 +28,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::livewire('/kategori', 'admin.category-manager')->name('category.index');
 Route::livewire('/menu', 'admin.menu-manager')->name('menu.index');
+Route::livewire('/produk', 'admin.product-manager')->name('product.index');
     });
 });
