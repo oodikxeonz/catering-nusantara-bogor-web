@@ -16,9 +16,9 @@
 
         <div class="absolute top-20 left-0 w-32 h-0.5 bg-linear-to-r from-cnb-gold to-transparent"></div>
 
-        <div
-            class="absolute top-8 right-8 bg-cnb-gold/10 backdrop-blur-md border border-cnb-gold/30 px-5 py-2 rounded-full hidden sm:block shadow-lg">
-            <span class="text-cnb-gold text-xs font-sans tracking-widest font-semibold">✦ PANDUAN PEMESANAN</span>
+        <div class="absolute top-8 right-8 bg-cnb-gold/10 backdrop-blur-md border border-cnb-gold/30 px-5 py-2 rounded-full hidden sm:flex items-center gap-2 shadow-lg">
+            <svg class="w-3.5 h-3.5 text-cnb-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <span class="text-cnb-gold text-xs font-sans tracking-widest font-semibold">PANDUAN PEMESANAN</span>
         </div>
 
         <div class="container mx-auto px-6 relative z-10 py-20">
@@ -180,7 +180,7 @@
                     class="bg-white/5 backdrop-blur-md border border-cnb-gold/20 rounded-2xl p-8 hover:border-cnb-gold/50 transition-all duration-300 hover:-translate-y-1">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-xl bg-cnb-gold/20 flex items-center justify-center shrink-0">
-                            <span class="text-cnb-gold font-serif text-lg">✦</span>
+                            <svg class="text-cnb-gold w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
                         <h3 class="font-serif text-xl font-bold text-white">Waktu Pemesanan</h3>
                     </div>
@@ -197,7 +197,7 @@
                     class="bg-white/5 backdrop-blur-md border border-cnb-gold/20 rounded-2xl p-8 hover:border-cnb-gold/50 transition-all duration-300 hover:-translate-y-1">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-xl bg-cnb-gold/20 flex items-center justify-center shrink-0">
-                            <span class="text-cnb-gold font-serif text-lg">✦</span>
+                            <svg class="text-cnb-gold w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
                         <h3 class="font-serif text-xl font-bold text-white">Pembayaran & Refund</h3>
                     </div>
@@ -212,7 +212,7 @@
                     class="bg-white/5 backdrop-blur-md border border-cnb-gold/20 rounded-2xl p-8 hover:border-cnb-gold/50 transition-all duration-300 hover:-translate-y-1">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-xl bg-cnb-gold/20 flex items-center justify-center shrink-0">
-                            <span class="text-cnb-gold font-serif text-lg">✦</span>
+                            <svg class="text-cnb-gold w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
                         <h3 class="font-serif text-xl font-bold text-white">Pengiriman & Area</h3>
                     </div>
@@ -227,7 +227,7 @@
                     class="bg-white/5 backdrop-blur-md border border-cnb-gold/20 rounded-2xl p-8 hover:border-cnb-gold/50 transition-all duration-300 hover:-translate-y-1">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-xl bg-cnb-gold/20 flex items-center justify-center shrink-0">
-                            <span class="text-cnb-gold font-serif text-lg">✦</span>
+                            <svg class="text-cnb-gold w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
                         <h3 class="font-serif text-xl font-bold text-white">Custom Paket Menu</h3>
                     </div>
@@ -236,6 +236,60 @@
                         <li>• Opsi penambahan buah, kerupuk, atau minuman kemasan tersedia.</li>
                         <li>• Konsultasikan preferensi menu Anda langsung kepada tim admin WhatsApp kami.</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- LOKASI DAPUR (GOOGLE MAPS) --}}
+    <section class="py-24 bg-cnb-cream relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-cnb-gold font-sans text-xs md:text-sm tracking-[0.3em] uppercase font-semibold">LOKASI & PENGIRIMAN</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-cnb-wood-dark mt-3 mb-4 font-bold">Lokasi <span class="text-cnb-gold">Dapur Utama</span></h2>
+                <div class="w-16 h-[2px] bg-cnb-gold mx-auto mb-4"></div>
+                <p class="text-cnb-gray font-sans text-base leading-relaxed">
+                    Pesanan diproduksi dan dikirim langsung dari dapur utama kami di Tamansari, Bogor.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+                <div class="bg-white border border-cnb-gold/20 rounded-3xl p-8 shadow-lg flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-cnb-gold/10 border border-cnb-gold/30 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-cnb-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-serif font-bold text-2xl text-cnb-wood-dark">Alamat Pengiriman</h3>
+                        <p class="text-cnb-gray font-sans text-sm leading-relaxed">
+                            <strong class="text-cnb-wood-dark block mb-1">Plus Code: 9Q7F+3X6</strong>
+                            Depan Raja Gadai, Jl. Raya Ciapus, Sukamantri, Kec. Tamansari, Kabupaten Bogor, Jawa Barat 16610
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-cnb-gold/15 space-y-3">
+                        <a href="https://maps.app.goo.gl/zPY29kQVaqhEHYFZ6"
+                           target="_blank" rel="noopener noreferrer"
+                           class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-cnb-gold text-cnb-wood-dark font-sans font-bold text-sm rounded-full hover:bg-cnb-gold-light transition shadow-md">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            <span>Petunjuk Arah Google Maps</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 rounded-3xl overflow-hidden shadow-lg border border-cnb-gold/20 min-h-[350px]">
+                    <iframe
+                        title="Peta Lokasi Catering Nusantara Bogor"
+                        width="100%"
+                        height="100%"
+                        style="border:0; min-height: 350px;"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps?q=-6.6373568,106.7749273&z=18&output=embed">
+                    </iframe>
                 </div>
             </div>
         </div>

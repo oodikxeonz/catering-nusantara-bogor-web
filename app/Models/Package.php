@@ -9,7 +9,7 @@ class Package extends Model
     protected $fillable = [
         'category_id', 'product_type', 'name', 'tier', 'price_per_pax',
         'min_order', 'description', 'image',
-        'is_customizable', 'is_available',
+        'is_customizable', 'is_available', 'is_best_seller',
     ];
 
     protected function casts(): array
@@ -18,6 +18,7 @@ class Package extends Model
             'price_per_pax' => 'decimal:2',
             'is_customizable' => 'boolean',
             'is_available' => 'boolean',
+            'is_best_seller' => 'boolean',
         ];
     }
 

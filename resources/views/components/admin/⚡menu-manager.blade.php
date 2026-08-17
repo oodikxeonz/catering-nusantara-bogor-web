@@ -29,6 +29,7 @@ new #[Layout('layouts.admin')] class extends Component
     public $existingImage = null;
     public $is_customizable = false;
     public $is_available = true;
+    public $is_best_seller = false;
     public $selectedProducts = [];
 
     public function mount()
@@ -62,6 +63,7 @@ new #[Layout('layouts.admin')] class extends Component
         $this->existingImage = $package->image;
         $this->is_customizable = $package->is_customizable;
         $this->is_available = $package->is_available;
+        $this->is_best_seller = $package->is_best_seller;
         $this->selectedProducts = $package->products->pluck('id')->toArray();
         $this->image = null;
         $this->showModal = true;
@@ -80,6 +82,7 @@ new #[Layout('layouts.admin')] class extends Component
         $this->existingImage = null;
         $this->is_customizable = false;
         $this->is_available = true;
+        $this->is_best_seller = false;
         $this->selectedProducts = [];
     }
 
@@ -107,7 +110,20 @@ new #[Layout('layouts.admin')] class extends Component
             'description' => $this->description,
             'is_customizable' => $this->is_customizable,
             'is_available' => $this->is_available,
+            'is_best_seller' => $this->is_best_seller,
         ];
+
+        // Validasi maksimal 3 best seller
+        if ($this->is_best_seller) {
+            $countQuery = Package::where('is_best_seller', true);
+            if ($this->editingId) {
+                $countQuery->where('id', '!=', $this->editingId);
+            }
+            if ($countQuery->count() >= 3) {
+                $this->addError('is_best_seller', 'Maksimal hanya 3 menu yang bisa dijadikan Best Seller. Hapus salah satu terlebih dahulu.');
+                return;
+            }
+        }
 
         if ($this->image) {
             $data['image'] = $this->image->store('packages', 'public');
@@ -183,10 +199,16 @@ new #[Layout('layouts.admin')] class extends Component
                              class="w-full h-full object-cover hover:scale-105 transition duration-500">
                         <div class="absolute inset-0 bg-linear-to-t from-cnb-wood-dark/70 via-transparent to-transparent"></div>
 
-                        <div class="absolute top-3 left-3">
+                        <div class="absolute top-3 left-3 flex flex-col gap-1.5">
                             <span class="bg-cnb-wood-dark/90 text-cnb-gold text-xs font-bold px-2.5 py-1 rounded-lg border border-cnb-gold/30">
                                 {{ $package->category->name ?? 'Menu' }}
                             </span>
+                            @if($package->is_best_seller)
+                                <span class="bg-cnb-gold text-cnb-wood-dark text-xs font-bold px-2.5 py-1 rounded-lg flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    Best Seller
+                                </span>
+                            @endif
                         </div>
                         <div class="absolute top-3 right-3">
                             @if($package->is_available)
@@ -353,6 +375,34 @@ new #[Layout('layouts.admin')] class extends Component
                                 <p class="text-xs text-gray-500 col-span-full">Belum ada lauk yang terdaftar. Tambahkan di menu "Kelola Lauk / Isian".</p>
                             @endforelse
                         </div>
+                    </div>
+
+                    {{-- Toggle Best Seller --}}
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4">
+                        @php
+                            $currentBestSellerCount = \App\Models\Package::where('is_best_seller', true)
+                                ->when($editingId, fn($q) => $q->where('id', '!=', $editingId))
+                                ->count();
+                            $isFull = $currentBestSellerCount >= 3 && !$is_best_seller;
+                        @endphp
+
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-sm font-semibold text-gray-800 block flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    Jadikan Best Seller
+                                </span>
+                                <span class="text-xs text-gray-500">Tampil di halaman utama website (maks. 3 menu).</span>
+                                @if($isFull)
+                                    <span class="text-xs text-red-600 font-semibold block mt-1">Slot Best Seller sudah penuh (3/3). Hapus salah satu dulu untuk menggantinya.</span>
+                                @else
+                                    <span class="text-xs text-amber-700 block mt-1">{{ $currentBestSellerCount }}/3 slot Best Seller terpakai.</span>
+                                @endif
+                            </div>
+                            <input type="checkbox" wire:model="is_best_seller" {{ $isFull ? 'disabled' : '' }}
+                                   class="w-5 h-5 rounded text-cnb-gold focus:ring-cnb-gold border-gray-300 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
+                        </div>
+                        @error('is_best_seller') <p class="text-red-500 text-xs mt-2 font-medium">{{ $message }}</p> @enderror
                     </div>
 
                     {{-- Toggle Status --}}

@@ -14,14 +14,17 @@
     {{-- NAVBAR --}}
     <nav class="sticky top-0 z-50 bg-cnb-wood-dark/95 backdrop-blur text-cnb-cream shadow-lg border-b border-cnb-gold/20">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="font-serif font-bold text-xl tracking-wide">
-                Catering <span class="text-cnb-gold">Nusantara</span>
+            <a href="{{ route('home') }}" class="flex items-center gap-2.5">
+                <img src="{{ asset('images/logocateringnobg.png') }}" alt="Logo Catering Nusantara Bogor" class="h-10 w-auto object-contain">
+                <span class="font-serif font-bold text-xl tracking-wide">Catering <span class="text-cnb-gold">Nusantara</span></span>
             </a>
+
+            {{-- Desktop Menu --}}
             <div class="space-x-8 text-sm font-medium hidden md:flex items-center">
-                <a href="{{ route('home') }}" class="hover:text-cnb-gold transition">Beranda</a>
-                <a href="{{ route('menu.index') }}" class="hover:text-cnb-gold transition">Menu</a>
-                <a href="{{ route('about') }}" class="hover:text-cnb-gold transition">Tentang</a>
-                <a href="{{ route('cara-pesan') }}" class="hover:text-cnb-gold transition">Cara Pesan</a>
+                <a href="{{ route('home') }}" class="hover:text-cnb-gold transition {{ request()->routeIs('home') ? 'text-cnb-gold font-bold' : '' }}">Beranda</a>
+                <a href="{{ route('menu.index') }}" class="hover:text-cnb-gold transition {{ request()->routeIs('menu.*') ? 'text-cnb-gold font-bold' : '' }}">Menu</a>
+                <a href="{{ route('about') }}" class="hover:text-cnb-gold transition {{ request()->routeIs('about') ? 'text-cnb-gold font-bold' : '' }}">Tentang</a>
+                <a href="{{ route('cara-pesan') }}" class="hover:text-cnb-gold transition {{ request()->routeIs('cara-pesan') ? 'text-cnb-gold font-bold' : '' }}">Cara Pesan</a>
             </div>
 
             <div class="flex items-center gap-3">
@@ -39,6 +42,52 @@
                 <a href="https://wa.me/628561155113" target="_blank"
                    class="hidden sm:inline-flex bg-cnb-gold text-cnb-wood-dark text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-cnb-gold-light transition-all duration-300 shadow-md">
                     Pesan Sekarang
+                </a>
+
+                {{-- Mobile Hamburger Button --}}
+                <button @click="isNavOpen = !isNavOpen"
+                        class="md:hidden text-cnb-gold hover:text-white p-2 rounded-lg bg-white/10 border border-cnb-gold/30 transition-all focus:outline-none"
+                        aria-label="Menu Utama">
+                    <svg class="w-6 h-6" x-show="!isNavOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg class="w-6 h-6" x-show="isNavOpen" style="display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        {{-- Mobile Navigation Drawer / Dropdown --}}
+        <div x-show="isNavOpen"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="md:hidden bg-cnb-wood-dark border-t border-cnb-gold/20 px-6 py-4 space-y-3"
+             style="display: none;">
+            <a href="{{ route('home') }}" @click="isNavOpen = false"
+               class="block py-2 text-base font-semibold transition border-b border-white/5 {{ request()->routeIs('home') ? 'text-cnb-gold' : 'text-white hover:text-cnb-gold' }}">
+                Beranda
+            </a>
+            <a href="{{ route('menu.index') }}" @click="isNavOpen = false"
+               class="block py-2 text-base font-semibold transition border-b border-white/5 {{ request()->routeIs('menu.*') ? 'text-cnb-gold' : 'text-white hover:text-cnb-gold' }}">
+                Menu Catering
+            </a>
+            <a href="{{ route('about') }}" @click="isNavOpen = false"
+               class="block py-2 text-base font-semibold transition border-b border-white/5 {{ request()->routeIs('about') ? 'text-cnb-gold' : 'text-white hover:text-cnb-gold' }}">
+                Tentang Kami
+            </a>
+            <a href="{{ route('cara-pesan') }}" @click="isNavOpen = false"
+               class="block py-2 text-base font-semibold transition border-b border-white/5 {{ request()->routeIs('cara-pesan') ? 'text-cnb-gold' : 'text-white hover:text-cnb-gold' }}">
+                Cara Pesan
+            </a>
+            <div class="pt-2">
+                <a href="https://wa.me/628561155113" target="_blank"
+                   class="w-full inline-flex items-center justify-center gap-2 bg-cnb-gold text-cnb-wood-dark font-bold text-sm py-3 rounded-full hover:bg-cnb-gold-light transition shadow-md">
+                    <span>Pesan via WhatsApp</span>
                 </a>
             </div>
         </div>
@@ -81,14 +130,19 @@
         </div>
 
         <div>
-            <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Kontak Kami</h4>
-            <div class="text-base space-y-3 text-cnb-cream/70">
-                <p class="flex items-center gap-2">
-                    <span class="font-semibold text-white">WhatsApp:</span> 0856-1155-113
+            <h4 class="font-semibold text-lg mb-4 text-cnb-gold tracking-wide">Kontak & Dapur</h4>
+            <div class="text-sm space-y-3 text-cnb-cream/70">
+                <p>
+                    <span class="font-semibold text-white block mb-0.5">WhatsApp:</span> 0856-1155-113
                 </p>
                 <p>
-                    <span class="font-semibold text-white">Area Layanan:</span> Bogor & Jabodetabek
+                    <span class="font-semibold text-white block mb-0.5">Alamat Dapur:</span>
+                    9Q7F+3X6 Depan Raja Gadai, Jl. Raya Ciapus, Sukamantri, Kec. Tamansari, Kab. Bogor, Jawa Barat 16610
                 </p>
+                <a href="https://maps.app.goo.gl/zPY29kQVaqhEHYFZ6" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs text-cnb-gold hover:underline font-semibold pt-1">
+                    <svg class="w-4 h-4 text-cnb-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    Buka Google Maps
+                </a>
             </div>
         </div>
     </div>
@@ -254,6 +308,7 @@
         function cartStore() {
             return {
                 isDrawerOpen: false,
+                isNavOpen: false,
                 cartItems: [],
                 customer: {
                     name: '',
@@ -351,6 +406,12 @@
 
                     const waUrl = `https://wa.me/628561155113?text=${encodeURIComponent(message)}`;
                     window.open(waUrl, '_blank');
+
+                    // Kosongkan keranjang setelah pesanan dikirim via WhatsApp
+                    this.cartItems = [];
+                    this.customer = { name: '', date: '', address: '', notes: '' };
+                    this.saveCart();
+                    this.isDrawerOpen = false;
                 }
             }
         }

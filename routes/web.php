@@ -27,7 +27,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
         Route::livewire('/kategori', 'admin.category-manager')->name('category.index');
-Route::livewire('/menu', 'admin.menu-manager')->name('menu.index');
-Route::livewire('/produk', 'admin.product-manager')->name('product.index');
+        Route::livewire('/menu', 'admin.menu-manager')->name('menu.index');
     });
 });

@@ -76,46 +76,21 @@
             <div class="w-16 h-0.5 bg-cnb-gold mx-auto"></div>
         </div>
 
-        @php
-            $bestSellers = [
-                [
-                    'name' => 'Nasi Pasundan Empal',
-                    'price' => 30000,
-                    'desc' => 'Nasi hangat dengan empal daging empuk khas Sunda, disajikan bersama sambal dan lalapan segar.',
-                    'image' => 'nasipasundan-empal.jpg', // Cukup tulis nama file jika gambar ada di public/images/
-                ],
-                [
-                    'name' => 'Ayam Serundeng',
-                    'price' => 28000,
-                    'desc' => 'Ayam suwir gurih berbalut serundeng kelapa khas Nusantara, cocok untuk segala acara.',
-                    'image' => 'ayam-serundeng.jpg',
-                ],
-                [
-                    'name' => 'Ayam Bakar',
-                    'price' => 30000,
-                    'desc' => 'Ayam bakar bumbu rempah pilihan dengan aroma khas panggangan, dijamin bikin nagih.',
-                    'image' => 'ayam-bakar.jpg', // Disesuaikan agar tidak membawa prefix "images/"
-                ],
-            ];
-        @endphp
-
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            @foreach($bestSellers as $item)
+            @forelse($bestSellers as $item)
                 <div class="group relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-md border border-cnb-gold/20 hover:border-cnb-gold/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between">
                     <div>
                         <!-- Badge Best Seller -->
                         <div class="absolute top-4 left-4 z-10 bg-cnb-gold text-cnb-wood-dark text-xs font-sans font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                             BEST SELLER
                         </div>
 
                         <!-- Image Wrapper -->
                         <div class="h-56 overflow-hidden bg-white/5">
-                            @if(!empty($item['image']))
-                                <img src="{{ asset('images/' . $item['image']) }}"
-                                     alt="{{ $item['name'] }}"
+                            @if($item->image)
+                                <img src="{{ asset('storage/' . $item->image) }}"
+                                     alt="{{ $item->name }}"
                                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-white/40 font-sans text-xs">
@@ -127,27 +102,74 @@
                         <!-- Item Content -->
                         <div class="p-6">
                             <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-serif text-xl font-bold text-white">{{ $item['name'] }}</h3>
+                                <h3 class="font-serif text-xl font-bold text-white">{{ $item->name }}</h3>
                                 <span class="font-serif font-bold text-cnb-gold text-lg">
-                                    Rp{{ number_format($item['price'], 0, ',', '.') }}<span class="text-xs text-white/70 font-sans">/pax</span>
+                                    Rp{{ number_format($item->price_per_pax, 0, ',', '.') }}<span class="text-xs text-white/70 font-sans">/pax</span>
                                 </span>
                             </div>
-                            <p class="text-white/70 font-sans text-sm leading-relaxed mb-4">{{ $item['desc'] }}</p>
+                            @if($item->description)
+                                <p class="text-white/70 font-sans text-sm leading-relaxed mb-2">{{ $item->description }}</p>
+                            @endif
+                            @if($item->products->count() > 0)
+                                <p class="text-white/60 font-sans text-xs leading-relaxed">
+                                    {{ $item->products->pluck('name')->implode(' · ') }}
+                                </p>
+                            @endif
                         </div>
                     </div>
 
                     <!-- Action Button -->
                     <div class="p-6 pt-0">
-                        <a href="{{ route('menu.index') }}"
+                        <a href="{{ route('menu.show', $item->category->slug ?? '#') }}"
                            class="w-full bg-cnb-gold hover:bg-cnb-gold-light text-cnb-wood-dark font-semibold text-sm py-3 rounded-full transition-all shadow flex items-center justify-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 4a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z" />
                             </svg>
-                            <span>Lihat di Katalog Menu</span>
+                            <span>Pesan Sekarang</span>
                         </a>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                {{-- Fallback: tampil dummy jika belum ada best seller dari DB --}}
+                @php
+                    $dummyBestSellers = [
+                        ['name' => 'Nasi Pasundan Empal', 'price' => 30000, 'desc' => 'Nasi hangat dengan empal daging empuk khas Sunda, disajikan bersama sambal dan lalapan segar.', 'image' => asset('images/nasipasundan-empal.jpg')],
+                        ['name' => 'Ayam Serundeng', 'price' => 28000, 'desc' => 'Ayam suwir gurih berbalut serundeng kelapa khas Nusantara, cocok untuk segala acara.', 'image' => asset('images/ayam-serundeng.jpg')],
+                        ['name' => 'Ayam Bakar', 'price' => 30000, 'desc' => 'Ayam bakar bumbu rempah pilihan dengan aroma khas panggangan, dijamin bikin nagih.', 'image' => asset('images/ayam-bakar.jpg')],
+                    ];
+                @endphp
+                @foreach($dummyBestSellers as $item)
+                    <div class="group relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-md border border-cnb-gold/20 hover:border-cnb-gold/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between">
+                        <div>
+                            <div class="absolute top-4 left-4 z-10 bg-cnb-gold text-cnb-wood-dark text-xs font-sans font-bold px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                                BEST SELLER
+                            </div>
+                            <div class="h-56 overflow-hidden bg-white/5">
+                                <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-serif text-xl font-bold text-white">{{ $item['name'] }}</h3>
+                                    <span class="font-serif font-bold text-cnb-gold text-lg">
+                                        Rp{{ number_format($item['price'], 0, ',', '.') }}<span class="text-xs text-white/70 font-sans">/pax</span>
+                                    </span>
+                                </div>
+                                <p class="text-white/70 font-sans text-sm leading-relaxed mb-4">{{ $item['desc'] }}</p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <a href="{{ route('menu.index') }}"
+                               class="w-full bg-cnb-gold hover:bg-cnb-gold-light text-cnb-wood-dark font-semibold text-sm py-3 rounded-full transition-all shadow flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 4a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z" />
+                                </svg>
+                                <span>Lihat di Katalog Menu</span>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            @endforelse
         </div>
 
         <div class="text-center mt-16">
@@ -161,6 +183,7 @@
         </div>
     </div>
 </section>
+
 
     {{-- KEUNGGULAN --}}
     <section class="py-24 bg-cnb-cream relative">

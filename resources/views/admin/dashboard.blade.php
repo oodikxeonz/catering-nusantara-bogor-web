@@ -10,10 +10,10 @@
         <div class="relative z-10 max-w-2xl">
             <span class="bg-cnb-gold text-cnb-wood-dark text-xs font-bold px-3.5 py-1.5 rounded-full inline-block mb-3 tracking-wider uppercase">Panel Pengelolaan Website</span>
             <h1 class="font-serif text-2xl sm:text-4xl font-bold text-cnb-wood-dark mb-2 leading-tight">
-                Selamat Datang, Ibu Admin
+                Selamat Datang, {{ Auth::guard('admin')->user()->name ?? Auth::guard('admin')->user()->username ?? 'Admin' }}
             </h1>
             <p class="text-cnb-wood-medium/80 font-sans text-sm sm:text-base font-light leading-relaxed">
-                Di sini Ibu bisa dengan mudah menambah menu baru, mengubah harga, maupun mengatur ketersediaan makanan di website.
+                Di sini Anda bisa dengan mudah menambah menu baru, mengubah harga, maupun mengatur ketersediaan makanan di website.
             </p>
         </div>
     </div>
@@ -22,7 +22,7 @@
     <div>
         <h2 class="font-serif text-lg sm:text-xl font-bold text-cnb-wood-dark mb-4">Ringkasan Data Website</h2>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {{-- Total Kategori --}}
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-cnb-gray/20 flex items-center gap-5 hover:border-cnb-gold transition">
                 <div class="w-14 h-14 rounded-xl bg-cnb-gold/15 border border-cnb-gold/30 flex items-center justify-center shrink-0">
@@ -50,20 +50,6 @@
                     <span class="text-[11px] text-cnb-gold font-semibold">Varian Siap Pesan</span>
                 </div>
             </div>
-
-            {{-- Total Produk / Lauk --}}
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-cnb-gray/20 flex items-center gap-5 hover:border-cnb-gold transition">
-                <div class="w-14 h-14 rounded-xl bg-cnb-gold/15 border border-cnb-gold/30 flex items-center justify-center shrink-0">
-                    <svg class="w-7 h-7 text-cnb-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v7a3 3 0 003 3v8m-3-11V3m-3 0v7a3 3 0 003 3m12-10a3 3 0 00-3 3v5a3 3 0 003 3v3m0-11V3"/>
-                    </svg>
-                </div>
-                <div>
-                    <p class="text-xs font-bold uppercase tracking-wider text-cnb-gray">Total Lauk & Isian</p>
-                    <p class="text-3xl font-serif font-bold text-cnb-wood-dark mt-0.5">{{ $totalProducts }}</p>
-                    <span class="text-[11px] text-cnb-gold font-semibold">Item Makanan</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -71,7 +57,7 @@
     <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-cnb-gray/20 space-y-5">
         <h2 class="font-serif text-xl font-bold text-cnb-wood-dark">Pintasan Cepat</h2>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <a href="{{ route('admin.category.index') }}"
                class="group p-5 rounded-xl bg-cnb-cream hover:bg-cnb-gold border border-cnb-gray/20 hover:border-cnb-gold transition-all text-left flex items-center gap-4">
                 <div class="w-10 h-10 rounded-lg bg-cnb-gold/20 group-hover:bg-cnb-wood-dark/20 flex items-center justify-center shrink-0 transition">
@@ -95,19 +81,6 @@
                 <div>
                     <h3 class="font-serif font-bold text-base text-cnb-wood-dark">Kelola Paket Menu</h3>
                     <p class="text-xs text-cnb-gray group-hover:text-cnb-wood-dark transition">Atur harga per pax & foto</p>
-                </div>
-            </a>
-
-            <a href="{{ route('admin.product.index') }}"
-               class="group p-5 rounded-xl bg-cnb-cream hover:bg-cnb-gold border border-cnb-gray/20 hover:border-cnb-gold transition-all text-left flex items-center gap-4">
-                <div class="w-10 h-10 rounded-lg bg-cnb-gold/20 group-hover:bg-cnb-wood-dark/20 flex items-center justify-center shrink-0 transition">
-                    <svg class="w-5 h-5 text-cnb-wood-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v7a3 3 0 003 3v8m-3-11V3m-3 0v7a3 3 0 003 3m12-10a3 3 0 00-3 3v5a3 3 0 003 3v3m0-11V3"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-serif font-bold text-base text-cnb-wood-dark">Kelola Lauk / Isian</h3>
-                    <p class="text-xs text-cnb-gray group-hover:text-cnb-wood-dark transition">Atur lauk pendamping menu</p>
                 </div>
             </a>
         </div>

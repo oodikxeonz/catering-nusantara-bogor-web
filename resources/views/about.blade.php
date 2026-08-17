@@ -16,7 +16,10 @@
         <div class="absolute top-20 left-0 w-32 h-[2px] bg-gradient-to-r from-cnb-gold to-transparent"></div>
 
         <div class="absolute top-8 right-8 bg-cnb-gold/10 backdrop-blur-md border border-cnb-gold/30 px-5 py-2 rounded-full hidden sm:block shadow-lg">
-            <span class="text-cnb-gold text-xs font-sans tracking-widest font-semibold">✦ KISAH KAMI</span>
+            <div class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-cnb-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="text-cnb-gold text-xs font-sans tracking-widest font-semibold">KISAH KAMI</span>
+            </div>
         </div>
 
         <div class="container mx-auto px-6 relative z-10 py-20">
@@ -66,7 +69,7 @@
                     <div class="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-6 hidden md:block border border-cnb-wood-dark/5">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-cnb-gold/10 rounded-xl flex items-center justify-center">
-                                <span class="text-cnb-gold font-serif text-xl">✦</span>
+                                <svg class="text-cnb-gold w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                             </div>
                             <div>
                                 <div class="font-serif font-bold text-cnb-wood-dark text-lg">Bogor, Jawa Barat</div>
@@ -90,7 +93,7 @@
                         <div class="group flex items-start gap-4 bg-white border border-cnb-gold/20 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-cnb-gold transition-all duration-300">
                             <div class="w-10 h-10 rounded-xl bg-cnb-gold/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-cnb-gold transition-all">
                                 <svg class="w-5 h-5 text-cnb-gold group-hover:text-cnb-wood-dark transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                                 </svg>
                             </div>
                             <div>
@@ -141,7 +144,7 @@
                         </p>
                     </div>
                     <div class="mt-8 pt-6 border-t border-white/10 flex items-center gap-2 text-cnb-gold text-sm font-semibold">
-                        <span>✦ Cita Rasa & Kualitas Terjaga</span>
+                        <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-cnb-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> Cita Rasa & Kualitas Terjaga</span>
                     </div>
                 </div>
 
@@ -171,6 +174,66 @@
                             <span>Terus berinovasi menghadirkan pilihan menu istimewa untuk beragam momen Anda.</span>
                         </li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- LOKASI DAPUR (GOOGLE MAPS) --}}
+    <section class="py-24 bg-cnb-cream relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-cnb-gold font-sans text-xs md:text-sm tracking-[0.3em] uppercase font-semibold">LOKASI & PENGIRIMAN</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-cnb-wood-dark mt-3 mb-4 font-bold">Lokasi <span class="text-cnb-gold">Dapur Produksi</span></h2>
+                <div class="w-16 h-[2px] bg-cnb-gold mx-auto mb-4"></div>
+                <p class="text-cnb-gray font-sans text-base leading-relaxed">
+                    Dapur produksi kami berlokasi di Tamansari, Kabupaten Bogor, siap melayani pengiriman ke area Bogor dan Jabodetabek.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+                {{-- Address Info Card --}}
+                <div class="bg-white border border-cnb-gold/20 rounded-3xl p-8 shadow-lg flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-cnb-gold/10 border border-cnb-gold/30 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-cnb-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-serif font-bold text-2xl text-cnb-wood-dark">Catering Nusantara Bogor</h3>
+                        <p class="text-cnb-gray font-sans text-sm leading-relaxed">
+                            <strong class="text-cnb-wood-dark block mb-1">Plus Code: 9Q7F+3X6</strong>
+                            Depan Raja Gadai, Jl. Raya Ciapus, Sukamantri, Kec. Tamansari, Kabupaten Bogor, Jawa Barat 16610
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-cnb-gold/15 space-y-3">
+                        <div class="flex items-center gap-3 text-xs text-cnb-wood-dark font-medium">
+                            <svg class="w-4 h-4 text-cnb-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>Senin - Sabtu: 08:00 - 18:00 WIB</span>
+                        </div>
+                        <a href="https://maps.app.goo.gl/zPY29kQVaqhEHYFZ6"
+                           target="_blank" rel="noopener noreferrer"
+                           class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-cnb-gold text-cnb-wood-dark font-sans font-bold text-sm rounded-full hover:bg-cnb-gold-light transition shadow-md">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            <span>Buka di Google Maps</span>
+                        </a>
+                    </div>
+                </div>
+
+                {{-- Embedded Google Map --}}
+                <div class="lg:col-span-2 rounded-3xl overflow-hidden shadow-lg border border-cnb-gold/20 min-h-[350px]">
+                    <iframe
+                        title="Peta Lokasi Catering Nusantara Bogor"
+                        width="100%"
+                        height="100%"
+                        style="border:0; min-height: 380px;"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps?q=-6.6373568,106.7749273&z=18&output=embed">
+                    </iframe>
                 </div>
             </div>
         </div>
