@@ -14,9 +14,11 @@
     {{-- NAVBAR --}}
     <nav class="sticky top-0 z-50 bg-cnb-wood-dark/95 backdrop-blur text-cnb-cream shadow-lg border-b border-cnb-gold/20">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="flex items-center gap-2.5">
-                <img src="{{ asset('images/logocateringnobg.png') }}" alt="Logo Catering Nusantara Bogor" class="h-10 w-auto object-contain">
-                <span class="font-serif font-bold text-xl tracking-wide">Catering <span class="text-cnb-gold">Nusantara</span></span>
+            <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                <div class="bg-cnb-cream/95 p-1.5 rounded-xl shadow-md border border-cnb-gold/40 flex items-center justify-center transition duration-300 group-hover:scale-105">
+                    <img src="{{ asset('images/logocateringnobg.png') }}" alt="Logo Catering Nusantara Bogor" class="h-9 w-auto object-contain">
+                </div>
+                <span class="font-serif font-bold text-xl tracking-wide text-white group-hover:text-cnb-gold transition duration-300">Catering <span class="text-cnb-gold">Nusantara</span></span>
             </a>
 
             {{-- Desktop Menu --}}
@@ -263,10 +265,17 @@
                                class="w-full border border-cnb-gold/30 focus:border-cnb-gold outline-none rounded-xl px-3.5 py-2.5 text-sm">
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-semibold text-cnb-wood-dark mb-1">Tanggal & Jam Acara *</label>
-                        <input type="text" x-model="customer.date" placeholder="Contoh: Sabtu, 15 Agustus 2026 (Jam 11:00 WIB)"
-                               class="w-full border border-cnb-gold/30 focus:border-cnb-gold outline-none rounded-xl px-3.5 py-2.5 text-sm">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-cnb-wood-dark mb-1">Tanggal Acara *</label>
+                            <input type="date" x-model="customer.date" :min="getMinDate()"
+                                   class="w-full border border-cnb-gold/30 focus:border-cnb-gold outline-none rounded-xl px-3.5 py-2.5 text-sm bg-white font-medium text-cnb-wood-dark cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-cnb-wood-dark mb-1">Jam Acara *</label>
+                            <input type="time" x-model="customer.time"
+                                   class="w-full border border-cnb-gold/30 focus:border-cnb-gold outline-none rounded-xl px-3.5 py-2.5 text-sm bg-white font-medium text-cnb-wood-dark cursor-pointer">
+                        </div>
                     </div>
 
                     <div>
@@ -313,8 +322,33 @@
                 customer: {
                     name: '',
                     date: '',
+                    time: '11:00',
                     address: '',
                     notes: ''
+                },
+
+                getMinDate() {
+                    const today = new Date();
+                    today.setDate(today.getDate() + 1);
+                    return today.toISOString().split('T')[0];
+                },
+
+                getFormattedEventDateTime() {
+                    if (!this.customer.date) return '-';
+                    try {
+                        const dateObj = new Date(this.customer.date + 'T00:00:00');
+                        const formattedDate = new Intl.DateTimeFormat('id-ID', {
+                            weekday: 'long',
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        }).format(dateObj);
+
+                        const timeStr = this.customer.time ? ` (Jam ${this.customer.time} WIB)` : '';
+                        return `${formattedDate}${timeStr}`;
+                    } catch(e) {
+                        return `${this.customer.date} ${this.customer.time || ''}`;
+                    }
                 },
 
                 initCart() {
@@ -378,6 +412,10 @@
                         alert('Silakan isi Nama Pemesan terlebih dahulu.');
                         return;
                     }
+                    if (!this.customer.date) {
+                        alert('Silakan pilih Tanggal Acara terlebih dahulu.');
+                        return;
+                    }
 
                     let message = `Halo Catering Nusantara Bogor!\n\n`;
                     message += `Saya *${this.customer.name}* ingin memesan catering dengan rincian berikut:\n\n`;
@@ -397,7 +435,7 @@
 
                     message += `INFORMASI PEMESAN & ACARA:\n`;
                     message += `- Nama Pemesan: ${this.customer.name}\n`;
-                    message += `- Tanggal & Jam Acara: ${this.customer.date || '-'}\n`;
+                    message += `- Tanggal & Jam Acara: ${this.getFormattedEventDateTime()}\n`;
                     message += `- Alamat Kirim: ${this.customer.address || '-'}\n`;
                     if (this.customer.notes) {
                         message += `- Catatan: ${this.customer.notes}\n`;
@@ -409,7 +447,7 @@
 
                     // Kosongkan keranjang setelah pesanan dikirim via WhatsApp
                     this.cartItems = [];
-                    this.customer = { name: '', date: '', address: '', notes: '' };
+                    this.customer = { name: '', date: '', time: '11:00', address: '', notes: '' };
                     this.saveCart();
                     this.isDrawerOpen = false;
                 }

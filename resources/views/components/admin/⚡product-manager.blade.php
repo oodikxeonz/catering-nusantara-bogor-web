@@ -7,6 +7,9 @@ use App\Models\Product;
 new #[Layout('layouts.admin')] class extends Component
 {
     public $products;
+    public $search = '';
+    public $typeFilter = '';
+
     public $showModal = false;
     public $showDeleteConfirm = null;
     public $editingId = null;
@@ -21,9 +24,33 @@ new #[Layout('layouts.admin')] class extends Component
         $this->loadProducts();
     }
 
+    public function updatedSearch() { $this->loadProducts(); }
+    public function updatedTypeFilter() { $this->loadProducts(); }
+
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->typeFilter = '';
+        $this->loadProducts();
+    }
+
     public function loadProducts()
     {
-        $this->products = Product::orderBy('name')->get();
+        $query = Product::query();
+
+        if (!empty(trim($this->search))) {
+            $searchTerm = trim($this->search);
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('type', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        if (!empty($this->typeFilter)) {
+            $query->where('type', $this->typeFilter);
+        }
+
+        $this->products = $query->orderBy('name')->get();
     }
 
     public function openCreate()
@@ -119,6 +146,48 @@ new #[Layout('layouts.admin')] class extends Component
             </svg>
             Tambah Lauk Baru
         </button>
+    </div>
+
+    {{-- Filter Bar --}}
+    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="font-serif font-bold text-base text-cnb-wood-dark flex items-center gap-2">
+                <svg class="w-5 h-5 text-cnb-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                </svg>
+                Filter Item Lauk
+            </h2>
+            @if($search || $typeFilter !== '')
+                <button type="button" wire:click="resetFilters" class="text-xs font-semibold text-red-600 hover:text-red-800 hover:underline flex items-center gap-1 cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    Reset Filter
+                </button>
+            @endif
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {{-- Search Bar --}}
+            <div class="relative">
+                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari lauk / isian..."
+                       class="w-full bg-gray-50 border border-gray-300 focus:border-cnb-gold focus:bg-white outline-none rounded-xl pl-9 pr-3.5 py-2.5 text-sm transition">
+                <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+
+            {{-- Type Filter --}}
+            <div>
+                <select wire:model.live="typeFilter"
+                        class="w-full bg-gray-50 border border-gray-300 focus:border-cnb-gold focus:bg-white outline-none rounded-xl px-3.5 py-2.5 text-sm text-cnb-wood-dark font-medium transition">
+                    <option value="">Semua Tipe Lauk</option>
+                    <option value="Main Course">Main Course (Lauk Utama)</option>
+                    <option value="Side Course">Side Course (Pendamping)</option>
+                    <option value="Vegetables">Vegetables (Sayur)</option>
+                    <option value="Sambal & Kerupuk">Sambal & Kerupuk</option>
+                    <option value="Drink & Dessert">Drink & Dessert</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     {{-- List Cards --}}

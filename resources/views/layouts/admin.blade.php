@@ -15,8 +15,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-0 flex items-stretch justify-between min-h-15">
 
             {{-- Brand --}}
-            <a href="{{ route('admin.dashboard') }}" wire:navigate class="font-serif font-bold text-lg sm:text-xl tracking-wide flex items-center pr-6 border-r border-white/10">
-                Admin <span class="text-cnb-gold ml-1.5">Catering</span>
+            <a href="{{ route('admin.dashboard') }}" wire:navigate class="font-serif font-bold text-lg sm:text-xl tracking-wide flex items-center gap-2.5 pr-6 border-r border-white/10 group py-2">
+                <div class="bg-cnb-cream/95 p-1 rounded-lg shadow-sm border border-cnb-gold/40 flex items-center justify-center transition group-hover:scale-105">
+                    <img src="{{ asset('images/logocateringnobg.png') }}" alt="Logo Catering Nusantara Bogor" class="h-7 w-auto object-contain">
+                </div>
+                <span>Admin <span class="text-cnb-gold ml-1">Catering</span></span>
             </a>
 
             {{-- Desktop Navigation Tabs --}}
