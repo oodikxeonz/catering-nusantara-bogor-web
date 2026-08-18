@@ -15,6 +15,11 @@ new #[Layout('layouts.admin')] class extends Component
     public $categories;
     public $products;
 
+    public $search = '';
+    public $categoryFilter = '';
+    public $statusFilter = '';
+    public $bestSellerFilter = '';
+
     public $showModal = false;
     public $showDeleteConfirm = null;
     public $editingId = null;
@@ -39,9 +44,50 @@ new #[Layout('layouts.admin')] class extends Component
         $this->loadPackages();
     }
 
+    public function updatedSearch() { $this->loadPackages(); }
+    public function updatedCategoryFilter() { $this->loadPackages(); }
+    public function updatedStatusFilter() { $this->loadPackages(); }
+    public function updatedBestSellerFilter() { $this->loadPackages(); }
+
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->categoryFilter = '';
+        $this->statusFilter = '';
+        $this->bestSellerFilter = '';
+        $this->loadPackages();
+    }
+
     public function loadPackages()
     {
-        $this->packages = Package::with('category', 'products')->orderBy('name')->get();
+        $query = Package::with('category', 'products');
+
+        if (!empty(trim($this->search))) {
+            $searchTerm = trim($this->search);
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', '%' . $searchTerm . '%')
+                  ->orWhereHas('category', function ($catQ) use ($searchTerm) {
+                      $catQ->where('name', 'like', '%' . $searchTerm . '%');
+                  })
+                  ->orWhereHas('products', function ($prodQ) use ($searchTerm) {
+                      $prodQ->where('name', 'like', '%' . $searchTerm . '%');
+                  });
+            });
+        }
+
+        if (!empty($this->categoryFilter)) {
+            $query->where('category_id', $this->categoryFilter);
+        }
+
+        if ($this->statusFilter !== '') {
+            $query->where('is_available', $this->statusFilter === '1');
+        }
+
+        if ($this->bestSellerFilter !== '') {
+            $query->where('is_best_seller', $this->bestSellerFilter === '1');
+        }
+
+        $this->packages = $query->orderBy('name')->get();
     }
 
     public function openCreate()
@@ -187,6 +233,105 @@ new #[Layout('layouts.admin')] class extends Component
             </svg>
             Tambah Paket Menu Baru
         </button>
+    </div>
+
+    {{-- Filter Bar --}}
+    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="font-serif font-bold text-base text-cnb-wood-dark flex items-center gap-2">
+                <svg class="w-5 h-5 text-cnb-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                </svg>
+                Filter Data Paket Menu
+            </h2>
+            @if($search || $categoryFilter || $statusFilter !== '' || $bestSellerFilter !== '')
+                <button type="button" wire:click="resetFilters" class="text-xs font-semibold text-red-600 hover:text-red-800 hover:underline flex items-center gap-1 cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    Reset Filter
+                </button>
+            @endif
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {{-- Search Bar --}}
+            <div class="relative">
+                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari nama paket..."
+                       class="w-full bg-gray-50 border border-gray-300 focus:border-cnb-gold focus:bg-white outline-none rounded-xl pl-9 pr-3.5 py-2.5 text-sm transition">
+                <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+
+            {{-- Searchable Category Filter --}}
+            <div x-data="{
+                    open: false,
+                    search: '',
+                    selectedId: @entangle('categoryFilter'),
+                    categories: {{ json_encode($categories->map(fn($c) => ['id' => $c->id, 'name' => $c->name])) }}
+                 }"
+                 class="relative"
+                 @click.outside="open = false">
+                <div class="relative">
+                    <input type="text"
+                           x-model="search"
+                           @focus="open = true"
+                           @input="open = true"
+                           placeholder="🔍 Ketik / pilih kategori..."
+                           class="w-full bg-gray-50 border border-gray-300 focus:border-cnb-gold focus:bg-white outline-none rounded-xl pl-3.5 pr-8 py-2.5 text-sm text-cnb-wood-dark font-medium transition cursor-pointer">
+                    <button type="button"
+                            x-show="selectedId || search"
+                            @click="selectedId = ''; search = ''; open = false; $wire.loadPackages()"
+                            class="absolute right-2.5 top-3 text-gray-400 hover:text-red-600 text-xs font-bold p-0.5">
+                        ✕
+                    </button>
+                </div>
+
+                <div x-show="open"
+                     x-transition:enter="transition ease-out duration-150"
+                     x-transition:enter-start="opacity-0 scale-95"
+                     x-transition:enter-end="opacity-100 scale-100"
+                     x-transition:leave="transition ease-in duration-100"
+                     x-transition:leave-start="opacity-100 scale-100"
+                     x-transition:leave-end="opacity-0 scale-95"
+                     class="absolute z-30 mt-1.5 w-full bg-white border border-gray-200 rounded-xl shadow-xl max-h-56 overflow-y-auto py-1 divide-y divide-gray-100"
+                     style="display: none;">
+                    <div @click="selectedId = ''; search = ''; open = false; $wire.loadPackages()"
+                         class="px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-gray-500 hover:bg-cnb-gold/15 cursor-pointer">
+                        -- Semua Kategori --
+                    </div>
+                    <template x-for="cat in categories.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))" :key="cat.id">
+                        <div @click="selectedId = cat.id; search = cat.name; open = false; $wire.loadPackages()"
+                             class="px-3.5 py-2.5 text-sm hover:bg-cnb-gold/20 cursor-pointer font-medium text-cnb-wood-dark flex items-center justify-between transition">
+                            <span x-text="cat.name"></span>
+                            <span x-show="selectedId == cat.id" class="text-cnb-gold font-bold text-xs">✓ Dipilih</span>
+                        </div>
+                    </template>
+                    <div x-show="categories.filter(c => c.name.toLowerCase().includes(search.toLowerCase())).length === 0"
+                         class="px-3.5 py-3 text-xs text-gray-400 text-center italic">
+                        Kategori tidak ditemukan
+                    </div>
+                </div>
+            </div>
+
+            {{-- Availability Status Filter --}}
+            <div>
+                <select wire:model.live="statusFilter"
+                        class="w-full bg-gray-50 border border-gray-300 focus:border-cnb-gold focus:bg-white outline-none rounded-xl px-3.5 py-2.5 text-sm text-cnb-wood-dark font-medium transition">
+                    <option value="">Semua Status Tampil</option>
+                    <option value="1">Aktif / Tampil</option>
+                    <option value="0">Nonaktif / Sembunyi</option>
+                </select>
+            </div>
+
+            {{-- Best Seller Filter --}}
+            <div>
+                <select wire:model.live="bestSellerFilter"
+                        class="w-full bg-gray-50 border border-gray-300 focus:border-cnb-gold focus:bg-white outline-none rounded-xl px-3.5 py-2.5 text-sm text-cnb-wood-dark font-medium transition">
+                    <option value="">Semua Status Menu</option>
+                    <option value="1">Khusus Best Seller</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     {{-- List Cards --}}
