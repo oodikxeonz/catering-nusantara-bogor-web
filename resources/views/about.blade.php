@@ -62,7 +62,7 @@
                 {{-- Left image --}}
                 <div class="relative group">
                     <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-cnb-wood-dark/10">
-                        <img src="{{ asset('images/Untitled.jpg23.jpg') }}" alt="Dapur Catering Nusantara"
+                        <img src="{{ asset('images/6305514454916995075.jpg') }}" alt="Dapur Catering Nusantara"
                              class="w-full h-[480px] object-cover transition-transform duration-700 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-cnb-wood-dark/40 to-transparent"></div>
                     </div>
